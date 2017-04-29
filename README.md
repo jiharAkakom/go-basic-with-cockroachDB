@@ -13,3 +13,11 @@ tampilan utama
 tampilan edit
 
 ![GitHub Logo](/data/img2.jpg)
+
+
+
+
+
+tampilan pada powershell
+
+![GitHub Logo](/data/img2.jpg)
