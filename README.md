@@ -20,4 +20,4 @@ tampilan edit
 
 tampilan pada powershell
 
-![GitHub Logo](/data/img2.jpg)
+![GitHub Logo](/data/img3.jpg)
