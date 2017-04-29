@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>basic go with cockroachDB</title>
+</head>
+<script src="data/my_jquerry.js"></script>
+<body style="font-family:tahoma,verdana,arial;
+	background-attachment:fixed;
+	zoom:reset;
+	background-image:url(data/bg.jpg);
+	color:white;background-repeat:no-repeat;
+	background-size:cover;
+	color:black">
+<br>
+<h2 style="margin-left:auto;margin-right:auto;text-align:center">Menu Input Data</h2>
+<form method="post" action="/input_data">
+<table border="0" width="20%" style="margin-left:auto;margin-right:auto;text-align:center;background-color:rgba(0, 0, 0, 0.2)">
+<tr>
+<td><br>Nim :</td><td> <br><input type="number" name="nim"></td>
+<tr>
+</tr>
+<td>Nama :</td><td> <input type="text" name="nama"></td>
+</tr>
+<tr>
+<td colspan="2"><input type="submit" value="Inputkan"></td>
+</tr>
+</table>
+</form>
+<br>
+<br>
+<h2 style="margin-left:auto;margin-right:auto;text-align:center">Hasil Pengambilan Data</h2>
+<table border="1" width="60%" style="margin-left:auto;margin-right:auto;margin-bottom:200px;background-color:rgba(0, 0, 0, 0.2)">
+<tr>
+<td width="5">Nomor</td><td>Nim</td><td>Nama</td><td width="25%" colspan="2">Opsi</td>
+</tr>
+{{range .}}
+<tr>
+<td>{{.Number}}</td>
+<td>{{.Nim}}</td>
+<td>{{.Nama}}</td>
+<td><button type="button" id="buka{{.Nim}}">Edit Data</button></td>
+<form action="/hapus_data" method="post">
+<td><button type="submit" value="{{.Nim}}" name="hapus">Hapus</button></td>
+</form>
+</tr>
+<tr  id="edit{{.Nim}}" style="display:none">
+<td colspan="5">
+<br>
+<form method="post" action="/ubah_data">
+<h2 style="margin-left:auto;margin-right:auto;text-align:center">Edit Data dengan Nim : {{.Nim}}</h2>
+<table border="0" width="40%" style="margin-left:auto;margin-right:auto;text-align:center">
+<tr>
+<td>Nim :</td><td> <input type="number" name="nim" placeholder="{{.Nim}}"></td>
+<tr>
+</tr>
+<td>Nama :</td><td> <input type="text" name="nama" placeholder="{{.Nama}}"></td>
+</tr>
+<tr>
+<td colspan="2"><input type="hidden" name="nim_sebelumnya" value="{{.Nim}}"><input type="submit" value="Simpan"></td>
+</tr>
+</table>
+</form>
+
+</td>
+</tr>
+
+
+<script>
+$(document).ready(function(){
+$('#buka{{.Nim}}').click(function(){
+$('#edit{{.Nim}}').toggle();});});
+</script>
+
+
+{{end}}
+</table>
+</body>
+</html>
