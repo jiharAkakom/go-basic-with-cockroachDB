@@ -4,7 +4,7 @@ including select,insert,update and delete
 
 tampilan utama
 
-![GitHub Logo](/data/image1.jpg)
+![GitHub Logo](/data/img1.jpg)
 
 
 
@@ -12,4 +12,4 @@ tampilan utama
 
 tampilan edit
 
-![GitHub Logo](/data/image2.jpg)
+![GitHub Logo](/data/img2.jpg)
