@@ -6,11 +6,16 @@ import "fmt"
 import _ "github.com/lib/pq"
 import "html/template"
 import "os"
+import "encoding/json"
 
 type mhs struct {
 	Number int
 	Nim    string
 	Nama   string
+}
+
+type jurusan struct {
+	Ka []mhs
 }
 
 func connect() *sql.DB {
@@ -44,6 +49,28 @@ func tampil_data(res http.ResponseWriter, req *http.Request) {
 	}
 	halaman, _ := template.ParseFiles("index.html")
 	halaman.Execute(res, mahasiswa)
+
+}
+
+func tampil_data_json(res http.ResponseWriter, req *http.Request) {
+	db := connect()
+	defer db.Close()
+
+	type maba []mhs
+	var mahasiswa maba
+	var num = 1
+
+	rows, _ := db.Query("select nim,nama from mhs")
+
+	for rows.Next() {
+		var nim, nama string
+		rows.Scan(&nim, &nama)
+		data := mhs{num, nim, nama}
+		mahasiswa = append(mahasiswa, data)
+		num++
+	}
+	json_mhs := jurusan{mahasiswa}
+	json.NewEncoder(res).Encode(json_mhs)
 
 }
 
@@ -91,6 +118,7 @@ func hapus_data(res http.ResponseWriter, req *http.Request) {
 
 func main() {
 	http.HandleFunc("/", tampil_data)
+	http.HandleFunc("/json", tampil_data_json)
 	http.HandleFunc("/input_data", input_data)
 	http.HandleFunc("/ubah_data", edit_data)
 	http.HandleFunc("/hapus_data", hapus_data)
